@@ -1,5 +1,6 @@
 import cv2
 import numpy
+import numpy as np
 
 numpy.seterr(over='ignore')
 
@@ -8,7 +9,8 @@ def f(x):
 
 def gaussian(x,sigma):
     print('x', x)
-    return (1.0/(2*numpy.pi*(sigma**2))) * numpy.exp(-(x**2)/(2*(sigma**2)))
+   # return (1.0/(2*numpy.pi*(sigma**2))) * numpy.exp(-(x**2)/(2*(sigma**2)))
+    return (np.exp(-x**2/(2*sigma**2)))/(sigma*(np.sqrt(2*np.pi)))
 
 def distance(x1,y1,x2,y2):
     return numpy.sqrt(numpy.abs((x1-x2)**2-(y1-y2)**2))

@@ -14,7 +14,11 @@ def distance(x, y, p, q): # Distance Function between two points- Euclidean
     return np.sqrt((x-p)**2 + (y-q)**2)
 
 def gaussian(x, sigma): # Gaussian Function with zero mean and variance sigma
-    return np.exp(- (x ** 2) / (2 * sigma ** 2))/(np.sqrt(2 * np.pi * (sigma ** 2)))
+	return (np.exp(-x ** 2 / (2 * sigma ** 2))) / (sigma * (np.sqrt(2 * np.pi)))
+
+	#return np.exp(- (x ** 2) / (2 * sigma ** 2))/(np.sqrt(2 * np.pi * (sigma ** 2)))
+
+	#return np.exp(- (x ** 2) / (2 * sigma ** 2)) / (np.sqrt(2 * np.pi * (sigma ** 2))) from notebook
 
 def weight(image,i,j,k,l,sigma_c,sigma_d): # Weight function to calculate the gaussians across variation in pixel positions and intensities
 	fg = gaussian(image[k][l] - image[i][j], sigma_c) # Function to spread the image intensities across a window in a gaussian curve
@@ -78,7 +82,7 @@ def designed_bilateral_filter(image,d,sigma_c,sigma_d): # Takes parameters-Image
 	return bilat1.astype(int)
 
 
-filename='lions.jpg'
+filename='spacex.jpg'
 image = cv2.imread(filename, cv2.IMREAD_COLOR) # Reading the image
 width, height = image.shape[:2]
 final_wide = int(width / 4)
@@ -103,5 +107,5 @@ print(len(filtered_image_OpenCV))
 #for x in range(width):
 #	for y in range(height):
 #		diffImage[x,y]=abs(bilat[x,y].astype(int)-filtered_image_OpenCV[x,y].astype(int))
-cv2.imwrite('diff.png', bilat-filtered_image_OpenCV)
+cv2.imwrite('diff.png', filtered_image_OpenCV-bilat)
 
